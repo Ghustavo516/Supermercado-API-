@@ -1,5 +1,7 @@
 package com.api.supermarket_api.Mercado.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ public class Produto {
 
     //Declaração da coluna codicoProduto
     @Column(name = "codicoProduto")
-    private int codicoProduto;
+    private String codicoProduto;
 
     //Declaração da coluna descricao
     @Column(name = "descricao")
@@ -25,7 +27,7 @@ public class Produto {
 
     //Declaração da coluna valorUnitario
     @Column(name = "valorUnitario")
-    private Double valorUnitario;
+    private BigDecimal valorUnitario;
 
     //getter and setters
     public Long getId(){
@@ -35,10 +37,10 @@ public class Produto {
         this.id = id;
     }
 
-    public int getCodicoProduto(){
+    public String getCodicoProduto(){
         return codicoProduto;
     }
-    public void setCodicoProduto(int codicoProduto){
+    public void setCodicoProduto(String codicoProduto){
         this.codicoProduto = codicoProduto;
     }
 
@@ -49,10 +51,10 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Double getValorUnitario(){
+    public BigDecimal getValorUnitario(){
         return valorUnitario;
     }
-    public void setValorUnitario(Double valorUnitario){
+    public void setValorUnitario(BigDecimal valorUnitario){
         this.valorUnitario = valorUnitario;
     }
     

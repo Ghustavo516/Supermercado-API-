@@ -17,13 +17,13 @@ public class Cliente {
 
     //Declaração da coluna 
     @Column(nullable = false, unique = true)
-    private int codigo;
+    private String codigo;
 
     public Cliente() {
         // Construtor padrão é necessário para o JPA
     }
 
-    public Cliente(String nome, int codigo) {
+    public Cliente(String nome, String codigo) {
         this.nome = nome;
         this.codigo = codigo;
     }
@@ -45,10 +45,10 @@ public class Cliente {
     }
 
     //getter and setters Codigo
-    public int getCodigo(){
+    public String getCodigo(){
         return codigo;
     }
-    public void setCodigo(int codigo){
+    public void setCodigo(String codigo){
         this.codigo = codigo;
     }  
 }

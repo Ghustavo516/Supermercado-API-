@@ -1,6 +1,7 @@
 package com.api.supermarket_api.Mercado.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -18,7 +19,7 @@ public class NotaFiscal {
 
     //Declaração da coluna dataCompra
     @Column(name = "dataCompra")
-    private LocalDate dataCompra;
+    private Date dataCompra;
 
     //Declaração da coluna nomeCliente
     @Column(name = "nomeCliente")
@@ -45,10 +46,10 @@ public class NotaFiscal {
         this.numeroNota = numeroNota;
     }
 
-    public LocalDate getDataCompra(){
+    public Date getDataCompra(){
         return dataCompra;
     }
-    public void setDataCompra(LocalDate dataCompra){
+    public void setDataCompra(Date dataCompra){
         this.dataCompra = dataCompra;
     }
 
