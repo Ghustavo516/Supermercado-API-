@@ -29,7 +29,7 @@ public class ClienteController {
     @GetMapping
     //Obter os dados de todos os clientes
     public List<Cliente> getAllClientes(){
-        return repository.findAll();
+        return repository.findAll();    
     }
 
     //@GetMapping("/api/cliente/{id}")

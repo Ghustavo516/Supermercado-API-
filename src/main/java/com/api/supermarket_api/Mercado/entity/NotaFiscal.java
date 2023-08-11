@@ -1,6 +1,6 @@
 package com.api.supermarket_api.Mercado.entity;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -21,50 +21,77 @@ public class NotaFiscal {
     @Column(name = "dataCompra")
     private Date dataCompra;
 
-    //Declaração da coluna nomeCliente
-    @Column(name = "nomeCliente")
-    private String nomeCliente;
+    //Criando relacionamento para com tabela de cliente
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cliente_id") //SE NÃO FUNCIONAR USAR O FOREIGN KEY
+    private Cliente cliente;
 
     //Declaração da coluna totalNota
     @Column(name = "totalNota")
-    private Double totalNota;
+    private BigDecimal totalNota;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "itensNota_id") //SE NÃO FUNCIONAR USAR O FOREIGN KEY
+    private ItensNota itensNota;
 
 
-
-    //Generate getters and setters
-    public Long getId(){
-        return id;
+    public NotaFiscal() {
     }
-    public void setId(Long id){
+
+    public NotaFiscal(Long id, Integer numeroNota, Date dataCompra, Cliente cliente, BigDecimal totalNota, ItensNota itensNota) {
+        this.id = id;
+        this.numeroNota = numeroNota;
+        this.dataCompra = dataCompra;
+        this.cliente = cliente;
+        this.totalNota = totalNota;
+        this.itensNota = itensNota;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getNumeroNota(){
-        return numeroNota;
+    public Integer getNumeroNota() {
+        return this.numeroNota;
     }
-    public void setNumeroNota(Integer numeroNota){
+
+    public void setNumeroNota(Integer numeroNota) {
         this.numeroNota = numeroNota;
     }
 
-    public Date getDataCompra(){
-        return dataCompra;
+    public Date getDataCompra() {
+        return this.dataCompra;
     }
-    public void setDataCompra(Date dataCompra){
+
+    public void setDataCompra(Date dataCompra) {
         this.dataCompra = dataCompra;
     }
 
-    public String getCliente(){
-        return nomeCliente;
-    }
-    public void setCliente(String nomeCliente){
-        this.nomeCliente = nomeCliente;
+    public Cliente getCliente() {
+        return this.cliente;
     }
 
-    public Double getTotalNota(){
-        return totalNota;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
-    public void setTotalNota(Double totalNota){
+
+    public BigDecimal getTotalNota() {
+        return this.totalNota;
+    }
+
+    public void setTotalNota(BigDecimal totalNota) {
         this.totalNota = totalNota;
     }
-    
+
+    public ItensNota getItensNota() {
+        return this.itensNota;
+    }
+
+    public void setItensNota(ItensNota itensNota) {
+        this.itensNota = itensNota;
+    }  
 }

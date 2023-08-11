@@ -1,12 +1,17 @@
 package com.api.supermarket_api.Mercado.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 //Entidade Produtos
 @Entity
@@ -28,6 +33,10 @@ public class Produto {
     //Declaração da coluna valorUnitario
     @Column(name = "valorUnitario")
     private BigDecimal valorUnitario;
+
+    //Relacionamento produto - ItensNota
+    @OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ItensNota> itensNotas = new ArrayList<ItensNota>();
 
     //getter and setters
     public Long getId(){
@@ -57,5 +66,13 @@ public class Produto {
     public void setValorUnitario(BigDecimal valorUnitario){
         this.valorUnitario = valorUnitario;
     }
-    
+
+    //getter and setter para relacionamento com Produto - Cliente
+    public void setItensNota(List<ItensNota> itensNotas){
+        this.itensNotas = itensNotas;
+    } 
+
+    public List<ItensNota> getItensNotas(){
+        return itensNotas;
+    }
 }

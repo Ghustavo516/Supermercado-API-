@@ -2,6 +2,9 @@ package com.api.supermarket_api.Mercado.entity;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Entidade Clinte
 @Entity
 @Table(name = "cliente")
@@ -9,46 +12,61 @@ public class Cliente {
     //Declaração da chave primaria
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id; 
 
     //Declaração da coluna nome
-    @Column(nullable = false)
+    @Column(name = "nome")
     private String nome;
 
-    //Declaração da coluna 
-    @Column(nullable = false, unique = true)
+    //Declaração da coluna
+    @Column(name = "codigo") 
     private String codigo;
 
+    //Relacionamento Cliente - NotaFiscal
+    @OneToMany(mappedBy = "cliente", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<NotaFiscal> notaFiscals = new ArrayList<NotaFiscal>();
+
+
     public Cliente() {
-        // Construtor padrão é necessário para o JPA
     }
 
-    public Cliente(String nome, String codigo) {
+    public Cliente(Long id, String nome, String codigo, List<NotaFiscal> notaFiscals) {
+        this.id = id;
         this.nome = nome;
         this.codigo = codigo;
+        this.notaFiscals = notaFiscals;
     }
 
-    //getter and setters Id
-    public Long getId(){
-        return id;
+    public Long getId() {
+        return this.id;
     }
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    //getter and setters Nome
-    public String getNome(){
-        return nome;
+    public String getNome() {
+        return this.nome;
     }
-    public void setNome(String nome){
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    //getter and setters Codigo
-    public String getCodigo(){
-        return codigo;
+    public String getCodigo() {
+        return this.codigo;
     }
-    public void setCodigo(String codigo){
+
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }  
+    }
+
+    public List<NotaFiscal> getNotaFiscals() {
+        return this.notaFiscals;
+    }
+
+    public void setNotaFiscals(List<NotaFiscal> notaFiscals) {
+        this.notaFiscals = notaFiscals;
+    }
 }
