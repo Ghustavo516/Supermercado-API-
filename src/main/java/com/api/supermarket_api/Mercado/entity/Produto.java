@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 //Entidade Produtos
 @Entity
 @Table(name = "produto")
@@ -35,6 +37,7 @@ public class Produto {
     private BigDecimal valorUnitario;
 
     //Relacionamento produto - ItensNota
+    @JsonIgnore
     @OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItensNota> itensNotas = new ArrayList<ItensNota>();
 

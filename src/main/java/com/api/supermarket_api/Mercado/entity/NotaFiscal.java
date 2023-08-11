@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "notaFiscal")
 public class NotaFiscal {
@@ -22,6 +24,7 @@ public class NotaFiscal {
     private Date dataCompra;
 
     //Criando relacionamento para com tabela de cliente
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id") //SE NÃO FUNCIONAR USAR O FOREIGN KEY
     private Cliente cliente;
@@ -30,6 +33,7 @@ public class NotaFiscal {
     @Column(name = "totalNota")
     private BigDecimal totalNota;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "itensNota_id") //SE NÃO FUNCIONAR USAR O FOREIGN KEY
     private ItensNota itensNota;

@@ -2,6 +2,8 @@ package com.api.supermarket_api.Mercado.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class Cliente {
     private String codigo;
 
     //Relacionamento Cliente - NotaFiscal
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<NotaFiscal> notaFiscals = new ArrayList<NotaFiscal>();
 
