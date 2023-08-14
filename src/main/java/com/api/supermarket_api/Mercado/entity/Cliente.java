@@ -2,11 +2,6 @@ package com.api.supermarket_api.Mercado.entity;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.ArrayList;
-import java.util.List;
-
 //Entidade Clinte
 @Entity
 @Table(name = "cliente")
@@ -25,22 +20,7 @@ public class Cliente {
     @Column(name = "codigo") 
     private String codigo;
 
-    //Relacionamento Cliente - NotaFiscal
-    @JsonIgnore
-    @OneToMany(mappedBy = "cliente", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<NotaFiscal> notaFiscals = new ArrayList<NotaFiscal>();
-
-
-    public Cliente() {
-    }
-
-    public Cliente(Long id, String nome, String codigo, List<NotaFiscal> notaFiscals) {
-        this.id = id;
-        this.nome = nome;
-        this.codigo = codigo;
-        this.notaFiscals = notaFiscals;
-    }
-
+    //Getters and Setters
     public Long getId() {
         return this.id;
     }
@@ -63,13 +43,5 @@ public class Cliente {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    public List<NotaFiscal> getNotaFiscals() {
-        return this.notaFiscals;
-    }
-
-    public void setNotaFiscals(List<NotaFiscal> notaFiscals) {
-        this.notaFiscals = notaFiscals;
     }
 }

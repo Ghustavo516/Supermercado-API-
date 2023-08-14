@@ -6,12 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.api.supermarket_api.Mercado.entity.ItensNota;
+import com.api.supermarket_api.Mercado.entity.NotaFiscal;
 import com.api.supermarket_api.Mercado.entity.Produto;
 import com.api.supermarket_api.Mercado.repository.ItensNotaRepository;
+import com.api.supermarket_api.Mercado.repository.NotaFiscalRepository;
 import com.api.supermarket_api.Mercado.repository.ProdutoRepository;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +26,9 @@ public class ItensNotaController {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private NotaFiscalRepository notaFiscalRepository;
 
     @GetMapping("/itensNota")
     //Obter os dados de todos os clientes
@@ -39,16 +46,24 @@ public class ItensNotaController {
 
     @PostMapping("/itensNota")
     @ResponseStatus(HttpStatus.CREATED)
-    public ItensNota createNotaFiscal(@RequestBody ItensNota itensNota) {
-        // Certifique-se de que o cliente associado existe no banco de dados
-        Optional<Produto> produto = produtoRepository.findById(itensNota.getProduto().getId());
-        if (produto.isPresent()) {
-            itensNota.setProduto(produto.get());
+    public ItensNota createItensNota(@RequestBody ItensNota itensNota) {
+        // Certifique-se de que o produto e a nota fiscal associados existem no banco de dados
+        Optional<Produto> produtoOptional = produtoRepository.findById(itensNota.getProduto().getId());
+        Optional<NotaFiscal> notaFiscalOptional = notaFiscalRepository.findById(itensNota.getNota().getId());
+
+        if (produtoOptional.isPresent() && notaFiscalOptional.isPresent()) {
+            Produto produto = produtoOptional.get();
+            NotaFiscal notaFiscal = notaFiscalOptional.get();
+
+            itensNota.setProduto(produto);
+            itensNota.setNota(notaFiscal);
+
             return itensNotaRepository.save(itensNota);
         } else {
-            throw new RuntimeException("Produto não encontrado");
+            throw new EntityNotFoundException("Produto ou Nota Fiscal não encontrado");
         }
     }
+
 
     @PutMapping("/itensNota/{id}")
     public ResponseEntity<ItensNota> updateItensNota(@PathVariable Long id, @RequestBody ItensNota itensNota) {
@@ -62,12 +77,20 @@ public class ItensNotaController {
             
             // Certifique-se de que o cliente associado existe no banco de dados
             Optional<Produto> produto = produtoRepository.findById(itensNota.getProduto().getId());
-            if (produto.isPresent()) {
-                updatedItensNota.setProduto(produto.get());
-                return ResponseEntity.ok(itensNotaRepository.save(updatedItensNota));
-            } else {
+            Optional<NotaFiscal> notaFiscal = notaFiscalRepository.findById(itensNota.getNota().getId());
+
+            if (!produto.isPresent()) {
                 throw new RuntimeException("Produto não encontrado");
             }
+
+            if (!notaFiscal.isPresent()) {
+                throw new RuntimeException("Nota Fiscal não encontrado");
+            }
+
+            updatedItensNota.setProduto(produto.get());
+            updatedItensNota.setNota(notaFiscal.get());
+            return ResponseEntity.ok(itensNotaRepository.save(updatedItensNota));
+    
         } else {
             return ResponseEntity.notFound().build();
         }

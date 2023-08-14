@@ -2,13 +2,16 @@ package com.api.supermarket_api.Mercado.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "notaFiscal")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class NotaFiscal {
     //Declaração da chave primaria
     @Id
@@ -24,8 +27,8 @@ public class NotaFiscal {
     private Date dataCompra;
 
     //Criando relacionamento para com tabela de cliente
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    
+    @ManyToOne()
     @JoinColumn(name = "cliente_id") //SE NÃO FUNCIONAR USAR O FOREIGN KEY
     private Cliente cliente;
 
@@ -33,23 +36,23 @@ public class NotaFiscal {
     @Column(name = "totalNota")
     private BigDecimal totalNota;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "itensNota_id") //SE NÃO FUNCIONAR USAR O FOREIGN KEY
-    private ItensNota itensNota;
+    @OneToMany(mappedBy = "nota", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ItensNota> itens;
 
 
     public NotaFiscal() {
     }
 
-    public NotaFiscal(Long id, Integer numeroNota, Date dataCompra, Cliente cliente, BigDecimal totalNota, ItensNota itensNota) {
+
+    public NotaFiscal(Long id, Integer numeroNota, Date dataCompra, Cliente cliente, BigDecimal totalNota, List<ItensNota> itens) {
         this.id = id;
         this.numeroNota = numeroNota;
         this.dataCompra = dataCompra;
         this.cliente = cliente;
         this.totalNota = totalNota;
-        this.itensNota = itensNota;
+        this.itens = itens;
     }
+    
 
     public Long getId() {
         return this.id;
@@ -91,11 +94,11 @@ public class NotaFiscal {
         this.totalNota = totalNota;
     }
 
-    public ItensNota getItensNota() {
-        return this.itensNota;
+    public List<ItensNota> getItens() {
+        return this.itens;
     }
 
-    public void setItensNota(ItensNota itensNota) {
-        this.itensNota = itensNota;
-    }  
+    public void setItens(List<ItensNota> itens) {
+        this.itens = itens;
+    }
 }

@@ -6,10 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.api.supermarket_api.Mercado.entity.Cliente;
-import com.api.supermarket_api.Mercado.entity.ItensNota;
 import com.api.supermarket_api.Mercado.entity.NotaFiscal;
 import com.api.supermarket_api.Mercado.repository.ClienteRepository;
-import com.api.supermarket_api.Mercado.repository.ItensNotaRepository;
 import com.api.supermarket_api.Mercado.repository.NotaFiscalRepository;
 
 import java.util.List;
@@ -24,9 +22,6 @@ public class NotaFiscalController {
 
     @Autowired
     private ClienteRepository clienteRepository;
-
-    @Autowired
-    private ItensNotaRepository itensRepository;
 
     @GetMapping("/notaFiscal")
     public List<NotaFiscal> getAllNotasFiscais() {
@@ -44,19 +39,14 @@ public class NotaFiscalController {
     public NotaFiscal createNotaFiscal(@RequestBody NotaFiscal notaFiscal) {
         // Certifique-se de que o cliente associado existe no banco de dados
         Optional<Cliente> cliente = clienteRepository.findById(notaFiscal.getCliente().getId());
-        Optional<ItensNota> itensNota = itensRepository.findById(notaFiscal.getItensNota().getId());
-
-        if (!cliente.isPresent()) {
-            throw new RuntimeException("Cliente não encontrado");
-        }
         
-        if (!itensNota.isPresent()) {
-            throw new RuntimeException("Itens Nota não encontrados");
-        }
-
-        notaFiscal.setCliente(cliente.get());
-        notaFiscal.setItensNota(itensNota.get());
-        return notaFiscalRepository.save(notaFiscal);      
+        if (cliente.isPresent()) {
+            notaFiscal.setCliente(cliente.get());
+            return notaFiscalRepository.save(notaFiscal); 
+        } 
+        else{
+            throw new RuntimeException("Cliente não encontrado");
+        }      
     }
 
     // @PutMapping("/{id}")
@@ -84,21 +74,14 @@ public class NotaFiscalController {
             
             // Certifique-se de que o cliente associado existe no banco de dados
             Optional<Cliente> cliente = clienteRepository.findById(notaFiscal.getCliente().getId());
-            Optional<ItensNota> itensNota = itensRepository.findById(notaFiscal.getItensNota().getId());
-
-            if(!cliente.isPresent()){
+            
+            if(cliente.isPresent()){
+               updatedNotaFiscal.setCliente(cliente.get());
+               return ResponseEntity.ok(notaFiscalRepository.save(updatedNotaFiscal));
+            }else{
                 throw new RuntimeException("Cliente não encontrado");
             }
-
-            if(!itensNota.isPresent()){
-                throw new RuntimeException("Itens Nota não encontrado");
-            }
-
-            updatedNotaFiscal.setCliente(cliente.get());
-            updatedNotaFiscal.setItensNota(itensNota.get());
-
-            return ResponseEntity.ok(notaFiscalRepository.save(updatedNotaFiscal));
-            
+          
         } else {
             return ResponseEntity.notFound().build();
         }
