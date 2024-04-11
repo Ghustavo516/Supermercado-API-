@@ -1,43 +1,45 @@
-# Supermercado-API
+# Supermarket API
 
-Esse projeto foi desenvolvido com a intensão de colocar em pratica os conteudo obtido durante os cursos de Java, Servlet, Spring Boot e Banco de dados, com isso desenvolvi uma API para fazer acesso a dados atraves de requesições HTTP: usando GET, POST, PUT e DELETE atraves do aplicativo PostMan.
+This project was developed with the intention of putting into practice the content obtained during courses on Java, Servlet, Spring Boot, and Database. With this, I developed an API REST to access data through HTTP requests: using GET, POST, PUT, and DELETE via the PostMan application.
 
-## Como utilizar?
+## How to use?
 
-Antes de realizarmos as configurações necessarias para fazer a API rodar e necessario ter alguns aplicativos e ferramentas onde iremos fazer a utilização deles para o uso da API.
+Before performing the necessary configurations to run the API, it is necessary to have some applications and tools where we will use them for the API usage.
 
 * VSCode
 * PostMan
 * TablePlus
 * Docker
 
-### 1 - Passo: Realizar o download de todos os arquivos desse repositorio
+### Step 1: Download all files from this repository
 
-Realizando o download de todos os arquivos desse repositorio, iremos abrir eles atraves do editor de codico VSCode.
+By downloading all the files from this repository, we will open them through the VSCode code editor.
 
-### 2 - Passo: Abrir o arquvo ```Docker-composer.yml```
-Esse arquivo é responsavel por ter todas as configurações necessarias para a API rodar
+### Step 2: Open the file `Docker-composer.yml`
 
-### 3 - Passo: Executar o comando ```docker compose up```
-Ao entrar no terminal da aplicação e executar o comando docker compose up, o docker ira realizar o download de todas dependencia necessarias para o funcionamento da imagem.
+This file is responsible for having all the necessary configurations for the API to run.
 
-### 4 - Passo: Executar a API pelo VScode
-Para executar a API pelo VScode é necessario entrar e encontrar o arquivo que chamado ```SupermarketApiApplication.java``` essa classe é responsavel por gerenciar a inicialização de nosso projeto com Spring Boot, isso somente é possivel por conta da anotação ```@SpringBootApplication```
+### Step 3: Execute the command `docker compose up`
 
-Para iniciar a execução de nossa API podemos usar o ```botão de executar``` ou precionar as teclas ```Ctrl + F5```
+When entering the application terminal and executing the command `docker compose up`, Docker will download all necessary dependencies for the image to function.
 
-#### Como saber que a aplicação esta iniciando?
+### Step 4: Execute the API through VScode
 
-Quando executar a aplicação Spring Boot iremos notar que no terminal sera exibido o logo do ```Spring``` e logo abaixo sera exibido o nome ```::Spring Boot ::```, dessa seguinte forma:
+To execute the API through VScode, it is necessary to enter and find the file called `SupermarketApiApplication.java`. This class is responsible for managing the initialization of our project with Spring Boot, which is only possible because of the `@SpringBootApplication` annotation.
+
+To start the execution of our API, we can use the `execute button` or press `Ctrl + F5`.
+
+#### How to know that the application is starting?
+
+When running the Spring Boot application, we will notice that in the terminal, the `Spring` logo will be displayed and below it, the name `::Spring Boot ::` will be displayed as follows:
 
 ![image](https://github.com/Ghustavo516/Supermercado-API/assets/41215700/8d97958b-4ee9-4a10-a80c-d346553ac337)
 
-#### Como saber que a API esta rodando?
+#### How to know that the API is running?
 
-Apos o Spring Boot inicializar e carregar todos os modulos necessarios para o funcionamento e não exibir nenhum erro, o Spring Boot ira exibir uma mensagem indicando que o servidor TomCat era rodando e indicando a porta que ele esta utilizando, geralmente essa porta é a 8080.
+After Spring Boot initializes and loads all necessary modules for operation without displaying any errors, Spring Boot will display a message indicating that the TomCat server is running and indicating the port it is using, usually, this port is 8080.
 
-Com a API ja rodando e todas as dependencias baixadas e instaladas para o funcionamento da API, iremos utilizar o aplication PostMan para fazer o envio de requesições HTTP, como GET, POST, PUT e DELETE.
-
+With the API already running and all dependencies downloaded and installed for the API to work, we will use the PostMan application to send HTTP requests, such as GET, POST, PUT, and DELETE.
 
   
 
